@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vector-sidecar-config
+data:
+  vector.toml: |
+    data_dir = "/var/lib/vector"
+
+    [sources.apps]
+      type = "docker"
+      # TODO filter to current container
+      # include_containers = ["?"]
+       
+    [sinks.central]
+      type = "vector"
+      inputs = ["apps"]
+      address = "vector.telemetry.svc.cluster.local:5000"
+      
+      [sinks.central.buffer]
+        type = "disk"
+        max_size = 1000000000 # 1gb
+        when_full = "drop_newest"
+---

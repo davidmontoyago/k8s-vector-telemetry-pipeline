@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vector-service-config
+  namespace: telemetry
+data:
+  vector.toml: |
+    data_dir = "/var/lib/vector"
+    
+    [sources.apps]
+      type = "vector"
+      address = "0.0.0.0:5000"
+    
+    [sinks.print]
+      type = "console"
+      inputs = ["apps"]
+      encoding = "text"
+---
