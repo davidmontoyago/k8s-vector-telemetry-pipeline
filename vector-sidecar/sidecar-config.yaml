@@ -6,11 +6,11 @@ metadata:
 data:
   vector.toml: |
     data_dir = "/var/lib/vector"
-
+  
     [sources.apps]
       type = "docker"
-      # TODO filter to current container
-      # include_containers = ["?"]
+      # TODO use kubernetes source
+      # https://github.com/timberio/vector/pull/893
        
     [sinks.central]
       type = "vector"
